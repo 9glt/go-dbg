@@ -29,12 +29,15 @@ func Debugf(format string, args ...interface{}) {
 
 func New(name string, o io.Writer) *L {
 	l := logrus.New()
+
 	l.SetOutput(o)
 	l.SetFormatter(&logrus.TextFormatter{
 		CallerPrettyfier: func(f *runtime.Frame) (string, string) {
-			s := strings.Split(f.Function, ".")
+			pc, file, _, _ := runtime.Caller(10)
+			name := runtime.FuncForPC(pc)
+			s := strings.Split(name.Name(), ".")
 			funcname := s[len(s)-1]
-			_, filename := path.Split(f.File)
+			_, filename := path.Split(file)
 			return funcname, filename
 		},
 	})
