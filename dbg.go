@@ -27,7 +27,7 @@ func Debug(format string, args ...interface{}) {
 func New(name string, o io.Writer) *L {
 	l := logrus.New()
 	l.SetOutput(o)
-	return &L{l}
+	return &L{l, name}
 }
 
 type L struct {
