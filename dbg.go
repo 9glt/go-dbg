@@ -29,6 +29,7 @@ func New(name string, o io.Writer) *L {
 	l.SetOutput(o)
 	l.SetFormatter(&logrus.TextFormatter{})
 	l.SetLevel(logrus.InfoLevel)
+	l.SetReportCaller(true)
 	return &L{l, name}
 }
 
