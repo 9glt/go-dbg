@@ -20,13 +20,15 @@ func Debugln(args ...interface{}) {
 	Logger.Debugln(args...)
 }
 
-func Debug(format string, args ...interface{}) {
-	Logger.Debug(format, args...)
+func Debugf(format string, args ...interface{}) {
+	Logger.Debugf(format, args...)
 }
 
 func New(name string, o io.Writer) *L {
 	l := logrus.New()
 	l.SetOutput(o)
+	l.SetFormatter(&logrus.TextFormatter{})
+	l.SetLevel(logrus.InfoLevel)
 	return &L{l, name}
 }
 
@@ -43,6 +45,6 @@ func (l *L) Debugln(args ...interface{}) {
 	l.logger.WithFields(logrus.Fields{"app": l.name}).Debugln(args...)
 }
 
-func (l *L) Debug(format string, args ...interface{}) {
+func (l *L) Debugf(format string, args ...interface{}) {
 	l.logger.WithFields(logrus.Fields{"app": l.name}).Debugf(format, args...)
 }
