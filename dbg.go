@@ -32,7 +32,7 @@ func New(name string, o io.Writer) *L {
 
 type L struct {
 	logger *logrus.Logger
-	name string
+	name   string
 }
 
 func (l *L) SetDebugLevel() {
@@ -40,9 +40,9 @@ func (l *L) SetDebugLevel() {
 }
 
 func (l *L) Debugln(args ...interface{}) {
-	l.logger.WithField({"app":l.name}).Debugln(args...)
+	l.logger.WithFields(logrus.Fields{"app": l.name}).Debugln(args...)
 }
 
 func (l *L) Debug(format string, args ...interface{}) {
-	l.logger.WithField({"app":l.name}).Debugf(format, args...)
+	l.logger.WithFields(logrus.Fields{"app": l.name}).Debugf(format, args...)
 }
