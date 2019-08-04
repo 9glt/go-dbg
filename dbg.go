@@ -2,6 +2,9 @@ package dbg
 
 import (
 	"io"
+	"path"
+	"runtime"
+	"strings"
 
 	"os"
 
@@ -27,7 +30,14 @@ func Debugf(format string, args ...interface{}) {
 func New(name string, o io.Writer) *L {
 	l := logrus.New()
 	l.SetOutput(o)
-	l.SetFormatter(&logrus.TextFormatter{})
+	l.SetFormatter(&logrus.TextFormatter{
+		CallerPrettyfier: func(f *runtime.Frame) (string, string) {
+			s := strings.Split(f.Function, ".")
+			funcname := s[len(s)-1]
+			_, filename := path.Split(f.File)
+			return funcname, filename
+		},
+	})
 	l.SetLevel(logrus.InfoLevel)
 	l.SetReportCaller(true)
 	return &L{l, name}
