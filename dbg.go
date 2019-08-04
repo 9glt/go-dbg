@@ -9,19 +9,19 @@ import (
 )
 
 var (
-	Logger = New("default", os.Stdout)
+	logger = New("default", os.Stdout)
 )
 
 func SetDebugLevel() {
-	Logger.SetDebugLevel()
+	logger.SetDebugLevel()
 }
 
 func Debugln(args ...interface{}) {
-	Logger.Debugln(args...)
+	logger.Debugln(args...)
 }
 
 func Debugf(format string, args ...interface{}) {
-	Logger.Debugf(format, args...)
+	logger.Debugf(format, args...)
 }
 
 func New(name string, o io.Writer) *L {
