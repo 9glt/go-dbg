@@ -16,7 +16,7 @@ func SetDebugLevel() {
 	Logger.SetDebugLevel()
 }
 
-func (l *L) Debugln(args ...interface{}) {
+func Debugln(args ...interface{}) {
 	Logger.Debugln(args...)
 }
 
